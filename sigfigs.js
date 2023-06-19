@@ -52,7 +52,7 @@ function startProgram() {
   });
 }
 
-// restart of NaN detected
+// restart (not working currently)
 function restartProgram() {
   startProgram();
 }
