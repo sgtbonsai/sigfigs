@@ -8,7 +8,7 @@ const rl = readline.createInterface({
 
 // count the number of sig figs
 function countSignificantFigures(number) {
-  const numString = String(number).replace(/^-/, ''); // remove the negative sign
+  const numString = String(number).replace(/[^0-9.]/g, ''); // remove things that aren't numbers
   const decimalIndex = numString.indexOf('.');
   
   let significantFigures = 0;
@@ -38,11 +38,26 @@ function countSignificantFigures(number) {
   return significantFigures;
 }
 
-// enter a number
-rl.question('> Enter a number: ', (number) => {
-  const result = countSignificantFigures(number);
-  console.log(`> Number of significant figures: ${result}`);
-  console.log("> Developed by BonsaiSgt on June 19, 2023")
-  
-  rl.close();
-});
+// start
+function startProgram() {
+  rl.question('> Enter a number: ', (input) => {
+    const number = Number(input);
+    
+    if (isNaN(number)) {
+      console.log('Please input a valid number.');
+      restartProgram();
+    } else {
+      const result = countSignificantFigures(number);
+      console.log(`> Number of significant figures: ${result}`);
+      console.log("> Developed by BonsaiSgt on June 19, 2023");
+      rl.close();
+    }
+  });
+}
+
+// restart
+function restartProgram() {
+  startProgram();
+}
+
+startProgram();
